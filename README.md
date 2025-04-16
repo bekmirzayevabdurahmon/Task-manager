@@ -17,4 +17,22 @@ Task Manager - bu foydalanuvchilarga kundalik vazifalarini belgilashda yordam be
 - Loyihaning xavfsiz bo'lishi
 - Loyiha responsiv bo'lishi
 - Loyiha hech qanday kamchiliksiz ishlashi
-# Task-manager
+
+## Databaza modellar
+
+1. Users
+   - id
+   - name
+   - created_at
+2. Folders
+   - id
+   - user_id
+   - name
+3. Tasks
+   - id
+   - name
+   - user_id
+   - description
+   - project_id
+   - priority
+   - deadline
