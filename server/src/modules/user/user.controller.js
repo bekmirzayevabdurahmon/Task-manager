@@ -48,7 +48,6 @@ const register = async (req, res, next) => {
             message: "Success",
             data: newUser
         });
-        // return res.redirect("/users/login");
     } catch (error) {
         next(error)
     }

@@ -16,6 +16,25 @@ const getAllFolders = async (req, res, next) => {
     };
 };
 
+const getById = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+
+        const foundedFolder = await folderModel.findById({ id })
+
+        if(!foundedFolder) {
+            throw new BaseException(`Folder is not found`, 404);
+        }
+
+        res.send({
+            message: "succes✅",
+            data: foundedFolder,
+        })
+    } catch (error) {
+        next(error)
+    }
+};
+
 const createFolder = async (req, res, next) => {
     try {
         const { name, userId } = req.body;
@@ -26,12 +45,10 @@ const createFolder = async (req, res, next) => {
             throw new BaseException(`This folder already created`);
         }
 
-        const newFolder = new folderModel({
+        const newFolder = await folderModel.create({
             name,
             userId,
         });
-
-        await newFolder.save();
 
         res.send({
             message: "succes✅",
@@ -87,4 +104,4 @@ const deleteFolder = async (req, res, next) => {
     }
 };
 
-export default { getAllFolders, createFolder, editFolder, deleteFolder }
+export default { getAllFolders, getById, createFolder, editFolder, deleteFolder }

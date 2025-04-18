@@ -13,7 +13,7 @@ const folderSchema = new mongoose.Schema(
         },
     },
     {
-        collection: "tasks",
+        collection: "folders",
         timestamps: true,
         versionKey: false,
     }
