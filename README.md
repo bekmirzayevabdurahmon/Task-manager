@@ -23,11 +23,13 @@ Task Manager - bu foydalanuvchilarga kundalik vazifalarini belgilashda yordam be
 1. Users
    - id
    - name
+   - folders[]
    - created_at
 2. Folders
    - id
    - user_id
    - name
+   - tasks[]
 3. Tasks
    - id
    - name

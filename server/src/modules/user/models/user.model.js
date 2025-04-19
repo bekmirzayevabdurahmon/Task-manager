@@ -20,6 +20,12 @@ const userSchema = new mongoose.Schema(
             enum: [ROLES.USER, ROLES.SUPER_ADMIN],
             default: ROLES.USER,
         },
+        folders: [
+            {
+                type: mongoose.SchemaTypes.ObjectId,
+                ref: "Folder",
+            },
+        ],
     },
     {
         collation: "users",

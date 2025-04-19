@@ -52,6 +52,11 @@ const createTask = async (req, res, next) => {
             deadline,
             folderId
         });
+
+        await folderModel.updateOne(
+            { _id: folderId },
+            { $push: { tasks: newTask._id } }
+        );
     
         res.send({
             message: "success✅",
@@ -105,6 +110,6 @@ const deleteTask = async (req, res, next) => {
     } catch (error) {
         next(error)
     }
-}
+};
 
 export default { getAllTasks, getById, createTask, editTask, deleteTask, }

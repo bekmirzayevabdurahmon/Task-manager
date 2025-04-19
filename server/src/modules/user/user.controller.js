@@ -13,12 +13,31 @@ import {
 
 const getAllUser = async (req, res, next) => {
     try {
-        const users = await userModel.find().collation({ locale: 'en' });
+        const users = await userModel.find().populate('folders').collation({ locale: 'en' });
 
         res.send({
             message: "Succes✅",
             count: users.length,
             data: users,
+        });
+    } catch (error) {
+        next(error)
+    }
+};
+
+const getById = async (req, res, next) => {
+    try {
+        const id = req.params.id
+
+        const user = await userModel.findById({ id }).populate('folders');
+
+        if(!user) {
+            throw new BaseException(`User not found`, 404);
+        };
+
+        res.send({
+            message: "succes✅",
+            data: user,
         });
     } catch (error) {
         next(error)
@@ -139,8 +158,88 @@ const forgotPassword = async (req, res, next) => {
     } catch (error) {
         next(error)
     }
-}
+};
 
+const refresh = async (req, res, next) => {
+    try {
+      const { refreshToken } = req.body;
+      const data = jwt.verify(refreshToken, REFRESH_TOKEN_SECRET);
+  
+      const newAccessToken = jwt.sign(data, ACCESS_TOKEN_SECRET, {
+        expiresIn: ACCESS_TOKEN_EXPIRE_TIME,
+        algorithm: "HS256",
+      });
+  
+      const newRefreshToken = jwt.sign(data, REFRESH_TOKEN_SECRET, {
+        expiresIn: REFRESH_TOKEN_EXPIRE_TIME,
+        algorithm: "HS256",
+      });
+  
+      res.cookie("accessToken", newAccessToken, {
+        httpOnly: true,
+        maxAge: +ACCESS_TOKEN_EXPIRE_TIME * 1000,
+      });
+  
+      res.cookie("refreshToken", newRefreshToken, {
+        httpOnly: true,
+        maxAge: +REFRESH_TOKEN_EXPIRE_TIME * 1000,
+      });
+  
+      res.send({
+        message: "Tokenlar yangilandi",
+        tokens: {
+          accessToken: newAccessToken,
+          refreshToken: newRefreshToken,
+        },
+      });
+    } catch (error) {
+      if (error instanceof jwt.TokenExpiredError) {
+        next(new BaseException("Refresh token muddati tugagan", 401));
+      } else if (error instanceof jwt.JsonWebTokenError) {
+        next(new BaseException("Noto'g'ri refresh token", 400));
+      } else {
+        next(error);
+      }
+    }
+  };
 
+const editUser = async (req, res, next) => {
+    try {
+        const id = req.params.id;
 
-export default { getAllUser, register, login, forgotPassword };
+        const updatedUser = await userModel.findByIdAndUpdate({ id }).populate('tasks');
+
+        if(!updatedUser) {
+            throw new BaseException(`User not found`, 404);
+        }
+
+        res.send({
+            message: "succes✅",
+            data: updatedUser,
+        });
+    } catch (error) {
+        next(error)
+    }
+};
+
+const deleteUser = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        console.log(id);
+        
+
+        const deletedUser = await userModel.findByIdAndDelete(id)
+
+        if(!deletedUser) {
+            throw new BaseException(`User not found`, 404);
+        }
+
+        res.send({
+            message: "deleted 🗑",
+        })
+    } catch (error) {
+        next(error)
+    }
+};
+
+export default { getAllUser, getById, register, login, refresh, forgotPassword, editUser, deleteUser };

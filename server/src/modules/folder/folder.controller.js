@@ -1,14 +1,17 @@
 import { isValidObjectId } from "mongoose";
 import { BaseException } from "../../exception/base.exception.js";
 import folderModel from "./models/folder.model.js";
+import userModel from "../user/models/user.model.js"
 
 const getAllFolders = async (req, res, next) => {
     try {
-        const folders = await folderModel.find().collation({ locale: 'en'});
+        const userID = req.user;
+        console.log(userID)
+        const folders = await folderModel.find().populate('tasks').collation({ locale: 'en'});
 
         res.send({
             message: "succes✅",
-            user: folders.user,
+            count: folders.length,
             data: folders,
         });
     } catch (error) {
@@ -18,20 +21,21 @@ const getAllFolders = async (req, res, next) => {
 
 const getById = async (req, res, next) => {
     try {
-        const { id } = req.params;
+        const userID = req.user;
+        const folderId = req.params.id;
 
-        const foundedFolder = await folderModel.findById({ id })
+        const folder = await folderModel.find({userId: userID}).findById(folderId).populate('tasks');
 
-        if(!foundedFolder) {
-            throw new BaseException(`Folder is not found`, 404);
+        if (!folder) {
+            throw new BaseException("Folder not found", 404);
         }
 
         res.send({
-            message: "succes✅",
-            data: foundedFolder,
-        })
+            message: "success✅",
+            data: folder,
+        });
     } catch (error) {
-        next(error)
+        next(error);
     }
 };
 
@@ -50,9 +54,13 @@ const createFolder = async (req, res, next) => {
             userId,
         });
 
+        await userModel.updateOne(
+            { _id: userId },
+            { $push: { folders: newFolder._id } }
+        ).collation({ locale: 'en' });
+
         res.send({
             message: "succes✅",
-            user: userId,
             data: newFolder,
         });
     } catch (error) {

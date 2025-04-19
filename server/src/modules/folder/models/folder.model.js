@@ -11,6 +11,12 @@ const folderSchema = new mongoose.Schema(
             ref: 'User',
             required: true,
         },
+        tasks: [
+            {
+                type: mongoose.SchemaTypes.ObjectId,
+                ref: "Task",
+            }
+        ],
     },
     {
         collection: "folders",
