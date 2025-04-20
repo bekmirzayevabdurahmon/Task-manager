@@ -33,7 +33,7 @@ elForm.addEventListener("submit", async (e) => {
         const data = await res.json();
         localStorage.setItem("user", JSON.stringify(data.data));
 
-        window.location.href = "/";
+        window.location.href = "/page/dashboard";
     } catch (error) {
         alert(error.message)
     }

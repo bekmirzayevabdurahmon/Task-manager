@@ -1,89 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Manager Dashboard</title>
-    <link rel="stylesheet" href="/styles/dashboard.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Task Manager Dashboard</title>
+  <link rel="stylesheet" href="/styles/dashboard.css" />
+  <!-- Axios'ni CDN orqali qo'shamiz -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
-    <div class="sidebar">
-        <div>
-            <div class="logo">To-Do List</div>
-            <div class="menu">
-                <a href="#" class="active"><i>📁</i> Personal</a>
-                <a href="#"><i>📁</i> Work</a>
-                <a href="#"><i>📁</i> Shopping</a>
-                <a href="#"><i>📁</i> Study</a>
-            </div>
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <div class="logo">TaskManager</div>
+      <h3>Folders</h3>
+      <ul id="folder-list">
+        <li><button class="create-folder-btn"><a href="/page/create-folder">+ Create Folder</a></button></li>
+      </ul>
+    </aside>
+    <main class="main-content">
+      <header class="main-header">
+        <h2>Task List</h2>
+        <div class="user-info">
+          <span id="header-username">Loading...</span>
+          <button class="logout-btn" onclick="handleLogout()">Logout</button>
         </div>
-        <div>
-            <a href="#"><i>🚪</i> Logout</a>
-        </div>
-    </div>
-
-    <div class="main-content">
-        <div class="header">
-            <h1>Personal Tasks</h1>
-            <div class="user">
-                <img src="assets/images/user.jpg" alt="User">
-                <span>Anne Douglas</span>
-            </div>
-        </div>
-
-        <div class="task-list">
-            <div class="task-header">
-                <span>3 tasks in Personal</span>
-                <button class="add-task-btn"><a href="/page/add-task"></a> + Add Task</button>
-            </div>
-
-            <div class="task">
-                <div class="task-left">
-                    <input type="checkbox">
-                    <div class="task-details">
-                        <h3>Buy groceries</h3>
-                        <p>Due: 2025-04-22</p>
-                    </div>
-                </div>
-                <div class="task-right">
-                    <span class="status pending">Pending</span>
-                    <button class="edit-btn">✏️</button>
-                    <button class="delete-btn">🗑️</button>
-                </div>
-            </div>
-
-            <div class="task">
-                <div class="task-left">
-                    <input type="checkbox" checked>
-                    <div class="task-details">
-                        <h3>Call mom</h3>
-                        <p>Due: 2025-04-20</p>
-                    </div>
-                </div>
-                <div class="task-right">
-                    <span class="status completed">Completed</span>
-                    <button class="edit-btn">✏️</button>
-                    <button class="delete-btn">🗑️</button>
-                </div>
-            </div>
-
-            <div class="task">
-                <div class="task-left">
-                    <input type="checkbox">
-                    <div class="task-details">
-                        <h3>Plan meeting</h3>
-                        <p>Due: 2025-04-25</p>
-                    </div>
-                </div>
-                <div class="task-right">
-                    <span class="status pending">Pending</span>
-                    <button class="edit-btn">✏️</button>
-                    <button class="delete-btn">🗑️</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="js/script.js"></script>
+      </header>
+      <section class="tasks-section">
+        <table id="task-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Task Name</th>
+              <th>Status</th>
+              <th>Deadline</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="task-list">
+          </tbody>
+        </table>
+        <button><a href="/page/add-task">Add Task</a></button>
+      </section>
+    </main>
+  </div>
+  <script src="/js/dashboard.js"></script>
 </body>
 </html>

@@ -10,6 +10,7 @@ import {
     REFRESH_TOKEN_SECRET,
     REFRESH_TOKEN_EXPIRE_TIME        
  } from "../../config/jwt.config.js";
+import { clear } from "node:console";
 
 const getAllUser = async (req, res, next) => {
     try {
@@ -104,7 +105,7 @@ const login = async (req, res, next) => {
             }
         );
 
-        res.cookie("accesToken", accessToken, {
+        res.cookie("accessToken", accessToken, {
             maxAge: +ACCESS_TOKEN_EXPIRE_TIME * 1000,
             httpOnly: true,
         });
@@ -120,6 +121,7 @@ const login = async (req, res, next) => {
             message: "Succes✅",
             AccesToken: accessToken,
             RefreshToken: refreshToken,
+            data: user,
         });
     } catch (error) {
         next(error)

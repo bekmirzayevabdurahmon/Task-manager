@@ -1,6 +1,7 @@
 import { join } from "node:path";
 import express from "express";
 import { config } from "dotenv";
+import axios from "axios";
 
 config();
 

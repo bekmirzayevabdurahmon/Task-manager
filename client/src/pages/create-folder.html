@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Folder</title>
+  <link rel="stylesheet" href="/styles/create-folder.css">
+</head>
+<body>
+  <div class="card">
+    <h2>Create New Folder</h2>
+    <form action="/submit" method="POST" class="create-folder-form">
+      <div class="input-group">
+        <label for="folderName">Folder Name</label>
+        <input type="text" id="folderName" placeholder="School" name="folderName"> 
+      <div class="actions">
+        <button class="btn-cancel"><a href="/page/dashboard">Cancel</a></button>
+        <button class="btn-create" type="submit">Create</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="/js/create-folder.js"></script>
+</body>
+</html>
