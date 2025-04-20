@@ -3,7 +3,7 @@ import userController from "./user.controller.js"
 import { Protected } from "../../middleware/protected.middleware.js";
 import { ROLES } from "../../constants/role.constants.js";
 import { ValidationMiddleware } from "../../middleware/validation.middleware.js";
-import { loginSchema, refreshSchema, registerSchema } from "./user.schema.js";
+import { loginSchema, refreshSchema, registerSchema } from "./dtos/user.schema.js";
 import { Roles } from "../../middleware/roles.middleware.js";
 
 const userRouter = Router();

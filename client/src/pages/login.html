@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="/styles/main.css"> <!-- Assuming external CSS file -->
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Login</h1>
+        <h3>Sign up: <a href="/page/register">Register</a></h3>
+        <form id="registerForm" action="/submit" method="POST" class="login-form auth-box">
+            <div class="form-group">
+                <input
+                    class="form-control"
+                    type="email"
+                    placeholder="Email"
+                    name="email"
+                    id="email"
+                    required
+                >
+            </div>
+            <div class="form-group">
+                <input
+                    class="form-control"
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    id="password"
+                    required
+                >
+            </div>
+            <button type="submit" class="btn">Login</button>
+        </form>
+        <div id="error-message" class="error"></div>
+    </div>
+    <script src="/js/login.js"></script>
+</body>
+</html>

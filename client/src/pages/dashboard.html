@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager Dashboard</title>
+    <link rel="stylesheet" href="/styles/dashboard.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div>
+            <div class="logo">To-Do List</div>
+            <div class="menu">
+                <a href="#" class="active"><i>📁</i> Personal</a>
+                <a href="#"><i>📁</i> Work</a>
+                <a href="#"><i>📁</i> Shopping</a>
+                <a href="#"><i>📁</i> Study</a>
+            </div>
+        </div>
+        <div>
+            <a href="#"><i>🚪</i> Logout</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1>Personal Tasks</h1>
+            <div class="user">
+                <img src="assets/images/user.jpg" alt="User">
+                <span>Anne Douglas</span>
+            </div>
+        </div>
+
+        <div class="task-list">
+            <div class="task-header">
+                <span>3 tasks in Personal</span>
+                <button class="add-task-btn"><a href="/page/add-task"></a> + Add Task</button>
+            </div>
+
+            <div class="task">
+                <div class="task-left">
+                    <input type="checkbox">
+                    <div class="task-details">
+                        <h3>Buy groceries</h3>
+                        <p>Due: 2025-04-22</p>
+                    </div>
+                </div>
+                <div class="task-right">
+                    <span class="status pending">Pending</span>
+                    <button class="edit-btn">✏️</button>
+                    <button class="delete-btn">🗑️</button>
+                </div>
+            </div>
+
+            <div class="task">
+                <div class="task-left">
+                    <input type="checkbox" checked>
+                    <div class="task-details">
+                        <h3>Call mom</h3>
+                        <p>Due: 2025-04-20</p>
+                    </div>
+                </div>
+                <div class="task-right">
+                    <span class="status completed">Completed</span>
+                    <button class="edit-btn">✏️</button>
+                    <button class="delete-btn">🗑️</button>
+                </div>
+            </div>
+
+            <div class="task">
+                <div class="task-left">
+                    <input type="checkbox">
+                    <div class="task-details">
+                        <h3>Plan meeting</h3>
+                        <p>Due: 2025-04-25</p>
+                    </div>
+                </div>
+                <div class="task-right">
+                    <span class="status pending">Pending</span>
+                    <button class="edit-btn">✏️</button>
+                    <button class="delete-btn">🗑️</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
