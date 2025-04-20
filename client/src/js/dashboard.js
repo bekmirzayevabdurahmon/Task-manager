@@ -1,4 +1,3 @@
-// dashboard.js
 document.addEventListener("DOMContentLoaded", async () => {
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -8,16 +7,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // Foydalanuvchi ma'lumotlarini ko‘rsatish
   document.getElementById("header-username").textContent = user.username || "Foydalanuvchi";
 
-  // Folderlarni backenddan olish
   try {
     const res = await fetch("http://localhost:4000/api/folders", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`, // Agar token kerak bo‘lsa
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
     });
     console.log(res)
@@ -29,9 +26,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     const folders = await res.json();
-    localStorage.setItem("folders", JSON.stringify(folders.data)); // Folderlarni localStorage’ga saqlash
+    localStorage.setItem("folders", JSON.stringify(folders.data)); 
 
-    // Folderlarni render qilish
     const folderList = document.getElementById("folder-list");
     folders.data.forEach((folder, index) => {
       const li = document.createElement("li");
@@ -42,14 +38,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       folderList.appendChild(li);
     });
 
-    // Birinchi folderning tasklarini avtomatik ko‘rsatish
     if (folders.data.length > 0) renderTasks(folders.data[0].tasks);
   } catch (error) {
     alert(error.message);
   }
 });
 
-// Tasklarni render qilish
 const taskList = document.getElementById("task-list");
 function renderTasks(tasks) {
   taskList.innerHTML = "";
@@ -75,7 +69,6 @@ function renderTasks(tasks) {
   });
 }
 
-// Logout funksiyasi
 function handleLogout() {
   localStorage.removeItem("accessToken");
   localStorage.removeItem("user");
