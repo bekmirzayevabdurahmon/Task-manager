@@ -10,7 +10,6 @@ import {
     REFRESH_TOKEN_SECRET,
     REFRESH_TOKEN_EXPIRE_TIME        
  } from "../../config/jwt.config.js";
-import { clear } from "node:console";
 
 const getAllUser = async (req, res, next) => {
     try {
@@ -62,6 +61,12 @@ const register = async (req, res, next) => {
             username,
             email,
             password: passwordHash,
+        });
+
+        await sendMail(
+            {to: email,
+              subject: "Welcome",
+              text: "Task manager ilovasida muvoffaqiyatli ro'yxatdan o'tdingiz",
         });
 
         res.send({
@@ -117,9 +122,15 @@ const login = async (req, res, next) => {
 
         res.cookie("user", JSON.stringify(user))
 
+        await sendMail(
+            {to: email,
+              subject: "Welcome",
+              text: "Task manager ilovasiga login orqli kirdingiz",
+        });
+
         res.send({
             message: "Succes✅",
-            AccesToken: accessToken,
+            AccessToken: accessToken,
             RefreshToken: refreshToken,
             data: user,
         });

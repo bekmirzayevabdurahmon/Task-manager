@@ -10,21 +10,16 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cors({
-    origin: "http://localhost:3000",
+const corsOptions = {
+    origin: 'http://localhost:3000',
     credentials: true
-}));
+}
+
+app.use(cors(corsOptions));
+app.use(cookieParser());
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-app.post("/submit", (req, res) => {
-    const { name, email, password } = req.body;
-    console.log("Ma'lumotlar:", name, email, password);
-    res.send("Ma'lumotlar yuborildi!");
-});
-
-app.use(cookieParser());
 
 app.use("/api", router); 
 

@@ -4,18 +4,16 @@ elForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const name = e.target.querySelector("input[name='folderName']").value;
-    const user = JSON.parse(localStorage.getItem("user")); 
+    const Folder = JSON.parse(localStorage.getItem("folder")); 
 
-    const userId = user ? user._id : null; 
+    const folderId = Folder ? Folder._id : null; 
 
-    const folder = { name, userId};
+    const folder = { name };
     console.log(folder)
 
-    console.log("Yuborilayotgan ma'lumot", JSON.stringify(folder))
-
     try {
-        const res = await fetch("http://localhost:4000/api/folders", {
-            method: "POST",
+        const res = await fetch(`http://localhost:4000/api/folders/${folderId}`, {
+            method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
             },

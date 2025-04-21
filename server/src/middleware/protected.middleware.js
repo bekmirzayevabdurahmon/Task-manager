@@ -67,7 +67,7 @@ export const Protected = (isProtected) => {
         const decodedData = jwt.verify(accessToken, ACCESS_TOKEN_SECRET);
   
         req.role = decodedData.role;
-        req.user = decodedData.user;
+        req.user = decodedData.id;
   
         next();
       } catch (err) {

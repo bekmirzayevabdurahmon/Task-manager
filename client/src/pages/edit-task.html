@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add task</title>
+    <link rel="stylesheet" href="/styles/add-task.css">
+</head>
+<body>
+    <div class="card">
+        <h2>Add New Task</h2>
+        <form action="/submit" method="POST" class="edit-task-form">
+            <div class="input-group">
+                <label for="taskName">Task Name</label>
+                <input type="text" name="taskName" placeholder="Doing Homework" id="taskName">
+                <label for="description">Description</label>
+                <textarea name="description" id="description" placeholder="Finishing some models of my project from my Computer Science course"></textarea>
+                <select name="priority" id="priority">
+                    <option value="low">LOW</option>
+                    <option value="meduim">MEDIUM</option>
+                    <option value="high">HIGH</option>
+                </select>
+                <select name="status" id="status">
+                    <option value="not-started">NOT_STARTED</option>
+                    <option value="in-process">IN PROCESS</option>
+                    <option value="completed">COMPLETED</option>
+                </select>
+                <label for="deadline">Deadline</label>
+                <input type="date" name="deadline" id="deadline">
+            </div>
+            <div class="actions">
+                <button class="btn-cancel"><a href="/page/dashboard">Cancel</a></button>
+                <button class="btn-create" type="submit">Create</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="/js/edit-task.js"></script>
+</body>
+</html>

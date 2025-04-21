@@ -3,11 +3,15 @@ import { BaseException } from "../../exception/base.exception.js";
 import folderModel from "./models/folder.model.js";
 import userModel from "../user/models/user.model.js"
 
+
 const getAllFolders = async (req, res, next) => {
     try {
         const userID = req.user;
         console.log(userID)
-        const folders = await folderModel.find().populate('tasks').collation({ locale: 'en'});
+        const folders = await folderModel
+            .find({ userId: userID })
+            .populate('tasks')
+            .collation({ locale: 'en'});
 
         res.send({
             message: "succes✅",
@@ -41,12 +45,13 @@ const getById = async (req, res, next) => {
 
 const createFolder = async (req, res, next) => {
     try {
-        const { name, userId } = req.body;
+        const { name } = req.body;
+        const userId = req.user;
 
-        const foundedFolder = await folderModel.findOne({ name, userId: userId});
+        const foundedFolder = await folderModel.findOne({ name, userId });
 
-        if(foundedFolder){
-            throw new BaseException(`This folder already created`);
+        if (foundedFolder) {
+            throw new BaseException(`This folder already exists`);
         }
 
         const newFolder = await folderModel.create({
@@ -60,11 +65,11 @@ const createFolder = async (req, res, next) => {
         ).collation({ locale: 'en' });
 
         res.send({
-            message: "succes✅",
+            message: "success✅",
             data: newFolder,
         });
     } catch (error) {
-        next(error)
+        next(error);
     }
 };
 
